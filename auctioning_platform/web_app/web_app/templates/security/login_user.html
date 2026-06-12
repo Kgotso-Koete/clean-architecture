@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% from "security/_macros.html" import render_field_with_errors, render_field %}
+
+{% block content %}
+<div style="max-width: 450px; margin: 4rem auto;">
+    <div class="card glass" style="padding: 3rem;">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Welcome Back</h1>
+        
+        <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+            {{ login_user_form.hidden_tag() }}
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Email Address</label>
+                {{ login_user_form.email(style="width: 100%; padding: 1rem; background: var(--bg-dark); border: 1px solid var(--border); color: white; border-radius: 0.5rem; box-sizing: border-box;", placeholder="name@example.com") }}
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Password</label>
+                {{ login_user_form.password(style="width: 100%; padding: 1rem; background: var(--bg-dark); border: 1px solid var(--border); color: white; border-radius: 0.5rem; box-sizing: border-box;", placeholder="••••••••") }}
+            </div>
+
+            <div style="margin-bottom: 2rem; display: flex; align-items: center; color: var(--text-muted);">
+                {{ login_user_form.remember(style="margin-right: 0.5rem;") }}
+                <label for="remember">Remember me</label>
+            </div>
+
+            <button type="submit" class="btn" style="width: 100%; padding: 1.2rem;">Sign In</button>
+        </form>
+
+        <div style="margin-top: 2rem; text-align: center; color: var(--text-muted);">
+            Don't have an account? 
+            <a href="{{ url_for_security('register') }}" style="color: var(--accent); text-decoration: none;">Register here</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

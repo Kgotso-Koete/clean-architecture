@@ -20,7 +20,7 @@ class SaUserDatastore(UserDatastore):
             return self.session.query(User).filter(User.email == email).one_or_none()
 
     def find_user(self, **kwargs: dict) -> User:
-        return self.session.query(User).filter_by(**kwargs).one()
+        return self.session.query(User).filter_by(**kwargs).first()
 
     def put(self, model: User) -> User:
         self.session.add(model)

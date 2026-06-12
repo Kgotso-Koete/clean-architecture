@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto;">
+    <div class="card glass" style="padding: 3rem;">
+        <h1>Start an Auction</h1>
+        <form action="/auctions/create_ui" method="POST">
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Title</label>
+                <input type="text" name="title" required placeholder="e.g. Vintage Camera"
+                       style="width: 100%; padding: 1rem; background: var(--bg-dark); border: 1px solid var(--border); color: white; border-radius: 0.5rem; box-sizing: border-box;">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Starting Price ($)</label>
+                <input type="number" name="starting_price" step="0.01" required 
+                       style="width: 100%; padding: 1rem; background: var(--bg-dark); border: 1px solid var(--border); color: white; border-radius: 0.5rem; box-sizing: border-box;">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">End Date & Time</label>
+                <input type="datetime-local" name="ends_at" required 
+                       style="width: 100%; padding: 1rem; background: var(--bg-dark); border: 1px solid var(--border); color: white; border-radius: 0.5rem; box-sizing: border-box;">
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Create Auction</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

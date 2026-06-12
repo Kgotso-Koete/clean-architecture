@@ -1,6 +1,6 @@
 from typing import Optional
 
-from flask import Flask, Response, request
+from flask import Flask, Response, redirect, request
 from flask_injector import FlaskInjector
 from sqlalchemy.engine import Connection
 from sqlalchemy.orm import Session
@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from main import bootstrap_app
 from main.modules import RequestScope
 from web_app.blueprints.auctions import AuctionsWeb, auctions_blueprint
+from web_app.blueprints.payments import payments_blueprint
 from web_app.blueprints.shipping import shipping_blueprint
 from web_app.json_encoder import JSONEncoder
 from web_app.security import setup as security_setup
@@ -23,6 +24,11 @@ def create_app(settings_override: Optional[dict] = None) -> Flask:
 
     app.register_blueprint(auctions_blueprint, url_prefix="/auctions")
     app.register_blueprint(shipping_blueprint, url_prefix="/shipping")
+    app.register_blueprint(payments_blueprint, url_prefix="/payments")
+
+    @app.route("/")
+    def index():
+        return redirect("/auctions/ui")
 
     # TODO: move this config
     app.config["SECRET_KEY"] = "super-secret"

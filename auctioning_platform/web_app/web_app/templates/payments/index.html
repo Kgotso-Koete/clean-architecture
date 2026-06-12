@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    <h1 style="margin-bottom: 2rem;">Pending Payments</h1>
+
+    {% if not payments %}
+    <div class="card glass" style="padding: 3rem; text-align: center;">
+        <p style="color: var(--text-muted); font-size: 1.2rem;">You have no pending payments.</p>
+        <a href="/auctions/ui" class="btn" style="display: inline-block; margin-top: 1rem;">Browse Auctions</a>
+    </div>
+    {% else %}
+    <div style="display: grid; gap: 1.5rem;">
+        {% for payment in payments %}
+        <div class="card glass" style="padding: 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h3 style="margin: 0 0 0.5rem 0;">{{ payment.description }}</h3>
+                <p style="color: var(--accent); font-size: 1.2rem; font-weight: 700; margin: 0;">{{ payment.amount }}</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Status: {{ payment.status }}</p>
+            </div>
+            {% if payment.status == 'new' %}
+            <form action="{{ url_for('payments_blueprint.pay', payment_uuid=payment.uuid) }}" method="POST">
+                <button type="submit" class="btn">Pay Now</button>
+            </form>
+            {% else %}
+            <span style="color: var(--text-muted); font-weight: 600;">{{ payment.status|upper }}</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

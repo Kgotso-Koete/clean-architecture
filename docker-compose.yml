@@ -6,7 +6,7 @@ services:
     volumes:
       - "./auctioning_platform/:/usr/src/app"
     ports:
-      - "5000:5000"
+      - "5001:5000"
     environment:
       PAYMENTS_LOGIN: empty
       PAYMENTS_PASSWORD: empty

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    <a href="/auctions/ui" style="color: var(--primary); text-decoration: none; margin-bottom: 2rem; display: inline-block;">&larr; Back to Auctions</a>
+    
+    <div class="card glass" style="padding: 3rem;">
+        <h1>{{ auction.title }}</h1>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; padding: 2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+            <div>
+                <div style="color: var(--text-muted);">Current Price</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">{{ auction.current_price }}</div>
+            </div>
+            <div>
+                <div style="color: var(--text-muted);">Ends At</div>
+                <div style="font-size: 1.25rem;">{{ auction.ends_at }}</div>
+            </div>
+        </div>
+
+        {% if auction.is_ended %}
+            <div class="glass" style="padding: 1.5rem; text-align: center; background: rgba(239, 68, 68, 0.1); border-color: #ef4444;">
+                This auction has ended.
+            </div>
+        {% elif current_user.is_authenticated %}
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <form action="/auctions/{{ auction.id }}/bid_ui" method="POST" style="flex: 1;">
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="number" name="amount" step="0.01" required placeholder="Bid amount"
+                               style="flex: 1; padding: 1rem; background: var(--bg-dark); border: 1px solid var(--border); color: white; border-radius: 0.5rem; box-sizing: border-box;">
+                        <button type="submit" class="btn">Place Bid</button>
+                    </div>
+                </form>
+                
+                <form action="/auctions/{{ auction.id }}/close" method="POST">
+                    <button type="submit" class="btn" style="background: var(--bg-dark); border: 1px solid #ef4444; color: #ef4444;">Close</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="glass" style="padding: 1.5rem; text-align: center;">
+                Please <a href="/login" style="color: var(--primary);">login</a> to place a bid.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

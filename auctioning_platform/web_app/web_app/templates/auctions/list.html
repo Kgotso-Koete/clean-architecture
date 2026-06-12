@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header style="text-align: center; margin-bottom: 4rem;">
+    <h1 style="font-size: 3rem; margin-bottom: 1rem;">Active Auctions</h1>
+    <p style="color: var(--text-muted);">Bid on premium items with architectural precision.</p>
+</header>
+
+<div class="auction-grid">
+    {% for auction in auctions %}
+    <div class="card glass">
+        <h2 style="margin-top: 0;">{{ auction.title }}</h2>
+        <div style="margin: 1.5rem 0;">
+            <div style="color: var(--text-muted); font-size: 0.875rem;">Current Price</div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">{{ auction.current_price }}</div>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+            <div style="color: var(--text-muted); font-size: 0.875rem;">Ends at</div>
+            <div>{{ auction.ends_at }}</div>
+        </div>
+        <a href="{{ auction.url }}" class="btn" style="display: block; text-align: center;">View Details</a>
+    </div>
+    {% else %}
+    <div class="glass" style="grid-column: 1/-1; padding: 4rem; text-align: center;">
+        <p style="color: var(--text-muted);">No active auctions at the moment. Check back later!</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

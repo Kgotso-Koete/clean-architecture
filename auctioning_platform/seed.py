@@ -200,6 +200,13 @@ def seed_db():
             )
             conn.execute(stmt)
             
+            # Reset PostgreSQL sequences so new inserts don't fail with duplicate key errors
+            print("Resetting primary key sequences...")
+            conn.execute("SELECT setval('users_id_seq', (SELECT MAX(id) FROM users));")
+            conn.execute("SELECT setval('roles_id_seq', (SELECT MAX(id) FROM roles));")
+            conn.execute("SELECT setval('auctions_id_seq', (SELECT MAX(id) FROM auctions));")
+            conn.execute("SELECT setval('bids_id_seq', (SELECT MAX(id) FROM bids));")
+            
             print("Database seeding completed successfully.")
 
         except Exception as e:

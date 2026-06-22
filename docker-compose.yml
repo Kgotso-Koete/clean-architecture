@@ -53,4 +53,4 @@ services:
       REDIS_HOST: redis
     depends_on:
       - database
-    command: ["dockerize", "-wait", "tcp://database:5432", "-timeout", "60s", "python", "seed.py"]
+    command: ["dockerize", "-wait", "tcp://database:5432", "-timeout", "60s", "sh", "-c", "sleep 5 && python seed.py"]

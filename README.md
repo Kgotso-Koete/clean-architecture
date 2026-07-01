@@ -18,14 +18,21 @@ Console - `make dev` to install each subpackage in editable mode.
 ## Working with docker containers
 ```bash
 # Start everything
-docker-compose up --build
+docker compose up --build
 
 # Black formatting
-docker-compose exec -T app black -l 120 ./
+docker compose exec -T app black -l 120 ./
 # isort
-docker-compose exec -T app isort --recursive ./
+docker compose exec -T app isort --recursive ./
 # flake8 checks
-docker-compose exec -T app flake8 --max-line-length 120 ./
+docker compose exec -T app flake8 --max-line-length 120 ./
 ```
+
+### Accessing the Web Services
+
+Once the Docker containers are up and running, you can access the following services in your browser:
+* **Web App UI**: [http://localhost:5001](http://localhost:5001)
+* **MailHog (SMTP Server UI)**: [http://localhost:8025](http://localhost:8025)
+
 
 
